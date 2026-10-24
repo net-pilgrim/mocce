@@ -2,7 +2,7 @@
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
 
-A modern, node-based visual state machine and telephony orchestration editor for **W3C CCXML (Call Control XML) 1.0**, built with **Svelte 5**, **Svelte Flow** (`@xyflow/svelte`), **Tailwind CSS v4**, and **TypeScript**.
+A modern, node-based visual state machine and telephony orchestration editor for **W3C CCXML (Call Control XML) 1.0**, built with **Svelte 5**, **Svelte Flow** (`@xyflow/svelte`), **Pure CSS Design System**, and **TypeScript**.
 
 Compliant with the **W3C Call Control eXtensible Markup Language (CCXML) Version 1.0 Recommendation**.
 
