@@ -10,6 +10,8 @@ Compliant with the **W3C Call Control eXtensible Markup Language (CCXML) Version
 
 ## 🚀 Features
 
+<img width="1908" height="1062" alt="image" src="https://github.com/user-attachments/assets/f9681493-bc4b-4690-83ea-3349b172bef6" />
+
 - **Full CCXML 1.0 State Machine Support**:
   - `<eventprocessor statevariable="...">`: Finite State Machine execution container.
   - `<transition state="..." event="..." cond="...">`: Event-driven state transitions with ECMAScript guard conditions.
