@@ -1,6 +1,7 @@
 <script lang="ts">
   import { X, Upload, FileUp, AlertTriangle } from '@lucide/svelte';
   import { parseCcxml, type ParseResult } from '../lib/ccxml/parser';
+  import { openCcxmlFile, isTauri } from '../lib/file-service';
 
   let {
     isOpen = false,
@@ -14,6 +15,7 @@
 
   let xmlInput = $state('');
   let parseError = $state<string | null>(null);
+  let fileInputElement: HTMLInputElement | null = $state(null);
 
   function handleImport() {
     if (!xmlInput.trim()) {
@@ -34,6 +36,19 @@
 
     onImport(result);
     onClose();
+  }
+
+  async function triggerOpenFile() {
+    if (isTauri()) {
+      const res = await openCcxmlFile();
+      if (res.success && res.content) {
+        xmlInput = res.content;
+        parseError = null;
+      }
+      return;
+    }
+
+    fileInputElement?.click();
   }
 
   function handleFileUpload(e: Event) {
@@ -100,11 +115,21 @@
         </div>
 
         <div class="flex items-center justify-between pt-2">
-          <label class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium cursor-pointer border border-slate-700 flex items-center gap-1.5">
-            <FileUp class="w-4 h-4" />
-            <span>Upload .ccxml file</span>
-            <input type="file" accept=".ccxml,.xml" onchange={handleFileUpload} class="hidden" />
-          </label>
+          <button
+            type="button"
+            onclick={triggerOpenFile}
+            class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium cursor-pointer border border-slate-700 flex items-center gap-1.5 transition-colors"
+          >
+            <FileUp class="w-4 h-4 text-cyan-400" />
+            <span>Open .ccxml file</span>
+          </button>
+          <input
+            bind:this={fileInputElement}
+            type="file"
+            accept=".ccxml,.xml"
+            onchange={handleFileUpload}
+            class="hidden"
+          />
 
           <div class="flex items-center gap-2">
             <button

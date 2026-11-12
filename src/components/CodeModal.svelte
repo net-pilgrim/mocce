@@ -1,5 +1,6 @@
 <script lang="ts">
   import { X, Copy, Download, Check, FileCode } from '@lucide/svelte';
+  import { saveCcxmlFile } from '../lib/file-service';
 
   let {
     isOpen = false,
@@ -21,14 +22,8 @@
     }, 2000);
   }
 
-  function downloadFile() {
-    const blob = new Blob([ccxmlCode], { type: 'application/ccxml+xml;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'callcontrol.ccxml';
-    a.click();
-    URL.revokeObjectURL(url);
+  async function downloadFile() {
+    await saveCcxmlFile(ccxmlCode, 'callcontrol.ccxml');
   }
 </script>
 

@@ -80,6 +80,25 @@ npm test
 npm run check
 ```
 
+### 6. Desktop Application (Tauri v2)
+
+MOCCE can run as a native desktop application powered by **Tauri v2** with direct filesystem access and native OS dialogs.
+
+#### Prerequisites
+Install the [Rust toolchain](https://rustup.rs/) and your platform's system dependencies:
+- **Linux**: `sudo apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev`
+- **macOS**: Xcode Command Line Tools (`xcode-select --install`)
+- **Windows**: Microsoft Visual Studio C++ Build Tools & WebView2
+
+#### Desktop Commands
+```bash
+# Run desktop app in development mode
+npm run tauri dev
+
+# Build production native installer / executable
+npm run tauri build
+```
+
 ---
 
 ## 📄 License

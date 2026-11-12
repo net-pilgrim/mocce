@@ -41,6 +41,7 @@
   import { autoLayoutNodes } from './lib/ccxml/layout';
   import { TEMPLATES, type CcxmlTemplate } from './lib/templates/templates';
   import { CcxmlSimulator } from './lib/simulator/ccxml-engine';
+  import { saveCcxmlFile } from './lib/file-service';
   import type { CcxmlDocSettings, CcxmlNodeType, StateNodeData } from './types/ccxml';
   import type { SimulatorState } from './types/simulator';
 
@@ -251,15 +252,13 @@
     showToast(`Imported CCXML document with ${result.nodes.length} states`);
   }
 
-  function handleExportFile() {
-    const blob = new Blob([generatedCcxml], { type: 'application/ccxml+xml;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'callflow.ccxml';
-    a.click();
-    URL.revokeObjectURL(url);
-    showToast('Exported callflow.ccxml');
+  async function handleExportFile() {
+    const result = await saveCcxmlFile(generatedCcxml, 'callflow.ccxml');
+    if (result.success) {
+      showToast(result.path ? `Saved to ${result.path}` : 'Exported callflow.ccxml');
+    } else if (result.error) {
+      showToast(`Export failed: ${result.error}`);
+    }
   }
 </script>
 
